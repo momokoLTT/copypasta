@@ -1,9 +1,6 @@
 ### IDE ###
 .idea/
 
-### Database persistence ###
-docker/database/data/
-
 ###> symfony/framework-bundle ###
 /.env.local
 /.env.local.php

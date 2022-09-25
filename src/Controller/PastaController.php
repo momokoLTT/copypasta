@@ -23,6 +23,7 @@ class PastaController extends AbstractController
 
     /**
      * @Route(path="/you-know-what")
+     *
      * @throws JsonException
      */
     public function youKnowWhat(Request $request): Response
