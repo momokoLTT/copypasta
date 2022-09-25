@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace App\Service;
 
+use App\Data\PastaDataInterface;
 use App\Data\YouKnowWhatData;
 use RuntimeException;
 
@@ -16,6 +17,7 @@ class PastaService
 
     public function createPasta(string $key, array $replacements = []): string
     {
+        /** @var PastaDataInterface $dataClass */
         $dataClass = self::CLASSES[$key];
         if (!$dataClass) {
             throw new RuntimeException("Unable to find class for key $key");
