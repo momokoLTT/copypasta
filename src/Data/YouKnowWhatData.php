@@ -118,6 +118,7 @@ PASTA;
                     'regen',
                     'shield',
                     'buff',
+                    'debuff',
                     'mit',
                     'mitigation',
                     'provoke',
