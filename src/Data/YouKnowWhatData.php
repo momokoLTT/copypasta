@@ -7,6 +7,7 @@ namespace App\Data;
 class YouKnowWhatData implements PastaDataInterface
 {
     public const KEY = 'you-know-what-nia';
+
     public const REPLACEMENTS = [
         'goodHealerName' => 'Nia',
         'goodHealerAbility1' => 'adloquium',
@@ -21,28 +22,6 @@ class YouKnowWhatData implements PastaDataInterface
         'regenOrShieldOrMit' => 'regen',
         'wipeCause' => 'healing',
     ];
-    public const ALL_JOBS = [
-        'PLD' => 'paladin',
-        'WAR' => 'warrior',
-        'DRK' => 'dark knight',
-        'GNB' => 'gunbreaker',
-        'WHM' => 'white mage',
-        'SCH' => 'scholar',
-        'AST' => 'astrologian',
-        'SGE' => 'sage',
-        'MNK' => 'monk',
-        'DRG' => 'dragoon',
-        'NIN' => 'ninja',
-        'SAM' => 'samurai',
-        'RPR' => 'reaper',
-        'BRD' => 'bard',
-        'MCH' => 'machinist',
-        'DNC' => 'dancer',
-        'BLM' => 'black mage',
-        'SMN' => 'summoner',
-        'RDM' => 'red mage',
-        'BLU' => 'blue mage',
-    ];
 
     public const TEXT = <<< PASTA
 You know what? You know what I want? I want the person who carried the past fucking 500 pulls to have the weapon so you know what? :goodHealerName: can have the fucking weapon. :goodHealerName: can have the goddamn fucking weapon. You know who else can have the mount too? :goodHealerName: can have the mount too. And you know who can have the minion? :goodHealerName: can have the fucking minion too. And you know who can have the fucking orchestrion roll? :goodHealerName: can have the orchestrion roll too. End of story, have a goodnight everyone, goodbye.
@@ -51,36 +30,11 @@ Shut the fuck up. I'm talking. I'm talking. You let them walk all over you and t
 PASTA;
 
     /**
-     * @param array<string,string> $replacements
-     *
-     * @return string
-     */
-    public static function createPasta(array $replacements = []): string
-    {
-        $text = self::TEXT;
-        $replacements = self::sanitizeInput($replacements);
-        foreach ($replacements as $find => $replace) {
-            $isAllCaps = preg_match_all("/[A-Z\s]/", $replace) === strlen($replace);
-
-            $lowercaseReplace = $isAllCaps ? strtoupper($replace) : strtolower($replace);
-            $uppercaseReplace = $isAllCaps ? strtoupper($replace) : ucwords($replace);
-
-            $text = str_replace(
-                [";${find};", ":${find}:"],
-                [$lowercaseReplace, $uppercaseReplace],
-                $text
-            );
-        }
-
-        return $text;
-    }
-
-    /**
      * @param array<string,string> $input
      *
      * @return array<string,string>
      */
-    private static function sanitizeInput(array $input): array
+    public static function sanitizeInput(array $input): array
     {
         $sanitizedInput = [];
         foreach (self::REPLACEMENTS as $key => $defaultValue) {
@@ -95,8 +49,8 @@ PASTA;
             }
 
             if ($key === 'badHealerJob'
-                && !array_key_exists($input[$key], self::ALL_JOBS) // abbreviations
-                && !in_array($input[$key], self::ALL_JOBS)      // full job name
+                && !array_key_exists($input[$key], FFXIVData::ALL_JOBS)         // abbreviations
+                && !in_array($input[$key], FFXIVData::ALL_JOBS, true)  // full job name
             ) {
                 continue;
             }
@@ -135,7 +89,7 @@ PASTA;
                 continue;
             }
 
-            // todo sanitize job actions maybe but fuck doing that now
+            // TODO: sanitize job actions maybe but fuck doing that now
 
             // slight override for grammar's sake
             if ($input[$key] === 'use') {

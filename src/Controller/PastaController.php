@@ -4,10 +4,10 @@ declare(strict_types=1);
 
 namespace App\Controller;
 
+use App\Service\PastaService;
 use App\Data\YouKnowWhatData;
-use App\Generator\PastaGenerator;
+use JsonException;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
-use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
@@ -17,15 +17,19 @@ use Symfony\Component\Routing\Annotation\Route;
  */
 class PastaController extends AbstractController
 {
-    public function __construct(private PastaGenerator $generator) {
+    public function __construct(private PastaService $service)
+    {
     }
 
     /**
      * @Route(path="/you-know-what")
+     * @throws JsonException
      */
-    public function youKnowWhat(Request $request): JsonResponse
+    public function youKnowWhat(Request $request): Response
     {
-        return new JsonResponse($this->generator->generatePasta('you-know-what-nia', $request));
+        $input = json_decode($request->getContent(), true, 512, JSON_THROW_ON_ERROR);
+
+        return new Response($this->service->createPasta(YouKnowWhatData::KEY, $input));
     }
 
     /**
@@ -33,7 +37,7 @@ class PastaController extends AbstractController
      */
     public function test(): Response
     {
-        return new Response(YouKnowWhatData::createPasta([
+        return new Response($this->service->createPasta(YouKnowWhatData::KEY, [
             'goodHealerName' => 'PSI',
             'goodHealerAbility1' => 'feint',
 
