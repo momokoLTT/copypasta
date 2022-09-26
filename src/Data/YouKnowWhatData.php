@@ -4,6 +4,8 @@ declare(strict_types=1);
 
 namespace App\Data;
 
+use App\Data\Enum\FFXIVJobEnum;
+
 class YouKnowWhatData implements PastaDataInterface
 {
     public const KEY = 'you-know-what-nia';
@@ -49,8 +51,8 @@ PASTA;
             }
 
             if ($key === 'badHealerJob'
-                && !array_key_exists($input[$key], FFXIVData::ALL_JOBS)         // abbreviations
-                && !in_array($input[$key], FFXIVData::ALL_JOBS, true)  // full job name
+                && !array_key_exists($input[$key], FFXIVJobEnum::CHOICES)         // abbreviations
+                && !in_array($input[$key], FFXIVJobEnum::CHOICES, true)  // full job name
             ) {
                 continue;
             }

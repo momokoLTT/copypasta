@@ -2,11 +2,12 @@
 
 declare(strict_types=1);
 
-namespace App\Data;
+namespace App\Data\Enum;
 
-class FFXIVData
+class FFXIVJobEnum
 {
-    public const ALL_JOBS = [
+    public const KEY = 'enumJobName';
+    public const CHOICES = [
         'PLD' => 'paladin',
         'WAR' => 'warrior',
         'DRK' => 'dark knight',
