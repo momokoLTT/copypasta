@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace App\Controller;
 
+use App\Data\Collection\PastaCollection;
 use App\Service\PastaService;
 use App\Data\YouKnowWhatData;
 use JsonException;
@@ -18,8 +19,8 @@ class PastaController extends AbstractController
     {
     }
 
-    #[Route(path: '/pasta/you-know-what', methods: ['GET', 'POST'])]
-    public function youKnowWhat(Request $request): Response
+    #[Route(path: '/pasta/submit', methods: ['POST'])]
+    public function submit(Request $request): Response
     {
         try {
             $input = json_decode($request->getContent(), true, 512, JSON_THROW_ON_ERROR);
@@ -27,13 +28,13 @@ class PastaController extends AbstractController
             return new Response('An error occurred while attempting to parse your input');
         }
 
-        return new Response($this->service->createPasta(YouKnowWhatData::KEY, $input));
+        return new Response($this->service->createPasta($input['chosenPasta'], $input['options']));
     }
 
     #[Route(path: '/pasta/test', methods: ['GET', 'POST'])]
     public function test(): Response
     {
-        return new Response($this->service->createPasta(YouKnowWhatData::KEY, [
+        return new Response($this->service->createPasta(YouKnowWhatData::getName(), [
             'goodHealerName' => 'PSI',
             'goodHealerAbility1' => 'feint',
 

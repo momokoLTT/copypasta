@@ -25,3 +25,12 @@ services:
     App\Controller\:
         resource: '../src/Controller'
         tags: ['controller.service_arguments']
+
+    # tag data separately for the compiler pass
+    App\Data\:
+        resource: '../src/Data/*Data.php'
+        tags: ['pasta.data']
+
+    App\Data\Enum:
+        resource: '../src/Data/Enum/'
+        tags: ['pasta.enum']
