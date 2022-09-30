@@ -24,6 +24,12 @@ class PastaController extends AbstractController
     ) {
     }
 
+    #[Route(path: '/pasta', methods: ['GET', 'POST'])]
+    public function entryPoint(): Response
+    {
+        return $this->redirect('/pasta/select');
+    }
+
     #[Route(path: '/pasta/test', methods: ['GET', 'POST'])]
     public function test(): Response
     {
