@@ -19,6 +19,11 @@ class YouKnowWhatData implements PastaDataInterface
         return 'you-know-what-nia';
     }
 
+    public function getPrettyName(): string
+    {
+        return "You know what? Nia can have the weapon.";
+    }
+
     public function getBaseText(): string
     {
         return <<< PASTA
@@ -53,8 +58,8 @@ PASTA;
      */
     public function sanitizeInput(array $input): array
     {
-        $jobCodes = $this->enums->getEnum(FFXIVJobCodeEnum::getName());
-        $jobNames = $this->enums->getEnum(FFXIVJobNameEnum::getName());
+        $jobCodes = $this->enums->get(FFXIVJobCodeEnum::getName());
+        $jobNames = $this->enums->get(FFXIVJobNameEnum::getName());
 
         $sanitizedInput = [];
         foreach ($this->getDefaultValues() as $key => $defaultValue) {

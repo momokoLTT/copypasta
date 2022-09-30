@@ -13,13 +13,23 @@ class PastaCollection
      */
     private array $data;
 
-    public function getPasta(string $key)
+    public function get(string $key): ?PastaDataInterface
     {
-        return $this->data[$key];
+        return $this->data[$key] ?? null;
     }
 
-    public function addPasta(PastaDataInterface $pasta)
+    public function add(PastaDataInterface $pasta): void
     {
         $this->data[$pasta::getName()] = $pasta;
+    }
+
+    public function getNames(): array
+    {
+        $names = [];
+        foreach($this->data as $name => $class) {
+            $names[$name] = $class->getPrettyName();
+        }
+
+        return $names;
     }
 }

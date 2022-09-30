@@ -20,7 +20,7 @@ class EnumPass implements CompilerPassInterface
         $definition = $container->findDefinition(EnumCollection::class);
 
         foreach ($container->findTaggedServiceIds('pasta.enum') as $id => $tags) {
-            $definition->addMethodCall('addEnum', [new Reference($id)]);
+            $definition->addMethodCall('add', [new Reference($id)]);
         }
     }
 }

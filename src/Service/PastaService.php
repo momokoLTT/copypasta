@@ -15,7 +15,7 @@ class PastaService
 
     public function createPasta(string $key, array $replacements = []): string
     {
-        $dataClass = $this->pastas->getPasta($key);
+        $dataClass = $this->pastas->get($key);
         if (!$dataClass) {
             throw new RuntimeException("Unable to find class for key $key");
         }

@@ -20,7 +20,7 @@ class PastaPass implements CompilerPassInterface
         $definition = $container->findDefinition(PastaCollection::class);
 
         foreach ($container->findTaggedServiceIds('pasta.data') as $id => $tags) {
-            $definition->addMethodCall('addPasta', [new Reference($id)]);
+            $definition->addMethodCall('add', [new Reference($id)]);
         }
     }
 }

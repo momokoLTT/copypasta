@@ -13,12 +13,12 @@ class EnumCollection
      */
     private array $data;
 
-    public function getEnum(string $key)
+    public function get(string $key): ?AbstractEnum
     {
-        return $this->data[$key];
+        return $this->data[$key] ?? null;
     }
 
-    public function addEnum(AbstractEnum $enum)
+    public function add(AbstractEnum $enum): void
     {
         $this->data[$enum::getName()] = $enum;
     }
