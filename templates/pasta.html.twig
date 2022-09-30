@@ -2,5 +2,10 @@
 
 {% block title %}Your pasta is served{% endblock title %}
 {% block body %}
-    {#  TODO dynamically render form stuff  #}
+    {{ form_start(form) }}
+    {% for elementData in getFormElements(form) %}
+        {{ form_row(elementData.element,{'label': elementData.prettyName ~ ': '}) }}
+    {% endfor %}
+    {{ form_row(form.submit) }}
+    {{ form_end(form) }}
 {% endblock body %}

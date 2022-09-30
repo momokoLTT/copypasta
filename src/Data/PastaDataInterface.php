@@ -16,4 +16,6 @@ interface PastaDataInterface
     public function getDefaultValues(): array;
 
     public function sanitizeInput(array $input): array;
+
+    public function getChoicesFor(string $key): ?array;
 }

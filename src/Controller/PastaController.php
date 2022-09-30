@@ -71,6 +71,7 @@ class PastaController extends AbstractController
             'chosenPasta' => $request->get('pastaName'),
         ]);
 
+        $form->handleRequest($request);
         if ($form->isSubmitted() && $form->isValid()) {
             $input = $form->getData();
 

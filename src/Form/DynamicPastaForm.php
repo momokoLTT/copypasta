@@ -11,6 +11,7 @@ use RuntimeException;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\Extension\Core\Type\CheckboxType;
 use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
+use Symfony\Component\Form\Extension\Core\Type\SubmitType;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
@@ -53,6 +54,9 @@ class DynamicPastaForm extends AbstractType
 
                     $this->addDropdown($builder, $key, $defaultValue, $enum::getOptions());
                     break;
+                case (str_starts_with($key, 'choice') && $data->getChoicesFor($key) !== null):
+                    $this->addDropdown($builder, $key, $defaultValue, $data->getChoicesFor($key));
+                    break;
                 case str_starts_with($key, 'xivJob'):
                     $this->addXivJobChoice($builder, $key, $defaultValue);
                     break;
@@ -61,22 +65,33 @@ class DynamicPastaForm extends AbstractType
                     break;
             }
         }
+
+        $builder->add('submit', SubmitType::class, [
+            'label' => 'Get pasta'
+        ]);
     }
 
     private function addText(FormBuilderInterface $builder, string $key, ?string $defaultValue): void
     {
-        $builder->add($key, TextType::class, ['empty_data' => $defaultValue ?? '']);
+        $builder->add($key, TextType::class, [
+            'label' => $key,
+            'empty_data' => $defaultValue ?? ''
+        ]);
     }
 
     private function addCheckBox(FormBuilderInterface $builder, string $key, bool $defaultValue): void
     {
-        $builder->add($key, CheckboxType::class, ['empty_data' => $defaultValue ?? false]);
+        $builder->add($key, CheckboxType::class, [
+            'label' => $key,
+            'empty_data' => $defaultValue ?? false
+        ]);
     }
 
     private function addDropdown(FormBuilderInterface $builder, string $key, string $defaultValue, array $options): void
     {
         $builder->add($key, ChoiceType::class,
             [
+                'label' => $key,
                 'empty_data' => $defaultValue,
                 'choices' => array_flip($options),
             ]
@@ -85,7 +100,10 @@ class DynamicPastaForm extends AbstractType
 
     private function addXivJobChoice(FormBuilderInterface $builder, string $key, ?string $defaultValue): void
     {
-        $builder->add($key, FFXIVJobType::class, ['defaultValue' => $defaultValue ?? '']);
+        $builder->add($key, FFXIVJobType::class, [
+            'label' => $key,
+            'defaultValue' => $defaultValue ?? ''
+        ]);
     }
 
     public function configureOptions(OptionsResolver $resolver)
