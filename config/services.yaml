@@ -31,6 +31,6 @@ services:
         resource: '../src/Data/*Data.php'
         tags: ['pasta.data']
 
-    App\Data\Enum:
+    App\Data\Enum\:
         resource: '../src/Data/Enum/'
         tags: ['pasta.enum']
