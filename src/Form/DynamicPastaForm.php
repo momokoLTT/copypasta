@@ -32,7 +32,7 @@ class DynamicPastaForm extends AbstractType
             throw new RuntimeException('Not all required parameters given for form');
         }
 
-        $data = $pastaCollection->get($options['pasta']);
+        $data = $pastaCollection->get($chosenPasta);
         if (!$data) {
             return;
         }

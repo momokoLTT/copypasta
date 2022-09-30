@@ -1,0 +1,10 @@
+{% extends "base.html.twig" %}
+
+{% block title %}Choose your pasta{% endblock %}
+{% block body %}
+    {{ form_start(form) }}
+        {{ form_row(form.pastaName) }}
+        <p></p>
+        {{ form_row(form.submit) }}
+    {{ form_end(form) }}
+{% endblock %}

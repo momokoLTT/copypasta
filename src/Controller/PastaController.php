@@ -44,11 +44,10 @@ class PastaController extends AbstractController
     }
 
     #[Route(path: '/pasta/select', methods: ['GET', 'POST'])]
-    public function pastaSelect(): Response
+    public function pastaSelect(Request $request): Response
     {
-        $form = $this->createForm(PastaSelectForm::class, null, [
-            'pastaCollection' => $this->pastaCollection
-        ]);
+        $form = $this->createForm(PastaSelectForm::class, null, ['pastaCollection' => $this->pastaCollection]);
+        $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
             return $this->redirect('/pasta/' . $form->getData()['pastaName']);

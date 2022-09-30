@@ -7,6 +7,7 @@ namespace App\Pasta\Form;
 use RuntimeException;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
+use Symfony\Component\Form\Extension\Core\Type\SubmitType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 
@@ -23,9 +24,14 @@ class PastaSelectForm extends AbstractType
             'pastaName',
             ChoiceType::class,
             [
+                'label' => 'Choose your pasta: ',
                 'choices' => $pastaCollection->getNames(),
             ]
         );
+
+        $builder->add('submit', SubmitType::class, [
+            'label' => 'Submit'
+        ]);
     }
 
     public function configureOptions(OptionsResolver $resolver)
