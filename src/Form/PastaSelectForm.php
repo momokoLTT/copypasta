@@ -25,7 +25,7 @@ class PastaSelectForm extends AbstractType
             ChoiceType::class,
             [
                 'label' => 'Choose your pasta: ',
-                'choices' => $pastaCollection->getNames(),
+                'choices' => array_flip($pastaCollection->getNames()),
             ]
         );
 

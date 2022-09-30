@@ -78,7 +78,7 @@ class DynamicPastaForm extends AbstractType
         $builder->add($key, ChoiceType::class,
             [
                 'empty_data' => $defaultValue,
-                'choices' => $options,
+                'choices' => array_flip($options),
             ]
         );
     }
